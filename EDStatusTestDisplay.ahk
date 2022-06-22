@@ -1,19 +1,9 @@
 #SingleInstance, Force
-; #KeyHistory, 0
-; SetBatchLines, -1
-; ListLines, Off
 SendMode Input ; Forces Send and SendRaw to use SendInput buffering for speed.
-; SetTitleMatchMode, 3 ; A window's title must exactly match WinTitle to be a match.
 SetWorkingDir, %A_ScriptDir%
-; SplitPath, A_ScriptName, , , , thisscriptname
-; #MaxThreadsPerHotkey, 1 ; no re-entrant hotkey handling
-; DetectHiddenWindows, On
-; SetWinDelay, -1 ; Remove short delay done automatically after every windowing command except IfWinActive and IfWinExist
-; SetKeyDelay, -1, -1 ; Remove short delay done automatically after every keystroke sent by Send or ControlSend
-; SetMouseDelay, -1 ; Remove short delay done automatically after Click and MouseMove/Click/Drag
 
 #Include %A_ScriptDir%\EDstatus.ahk
-#Include *i <autoReload>
+#Include *i <autoReload> ; used for testing only
 
 
 CustomColor := "EEAA99"  ; Can be any RGB color (it will be made transparent below).
@@ -21,9 +11,6 @@ Gui +LastFound +AlwaysOnTop -Caption +ToolWindow  ; +ToolWindow avoids a taskbar
 Gui, Color, %CustomColor%
 Gui, Margin,, -5
 Gui, Font, q5 s10, Segoe UI
-
-; Gui, Font, s32  ; Set a large font size (32-point).
-; Gui, Add, Text, vMyText cYellow
 
 Gui, Add, Text, w200 vLegalState cYellow y10
 Gui, Add, Text, w200 vGuiFocus cYellow
@@ -42,18 +29,13 @@ Gui, Add, Text, w200 vpipENG cYellow
 Gui, Add, Text, w200 vpipWEP cYellow
 Gui, Add, Text, w200 vFlags cYellow y10 R40
 
-
 ; Make all pixels of this color transparent and make the text itself translucent (150):
 WinSet, TransColor, %CustomColor% 150
-
 
 SetTimer, UpdateOSD, 100
 Gosub, UpdateOSD  ; Make the first update immediate rather than waiting for the timer.
 
 Gui, Show, xCenter y0 NoActivate  ; NoActivate avoids deactivating the currently active window.
-; WinGetPos, , , Width
-; xPos := (A_ScreenWidth - Width) / 2
-; WinMove, , , %xPos%, -32
 return
 
 UpdateOSD:
